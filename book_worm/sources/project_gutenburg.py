@@ -9,11 +9,13 @@ import requests
 from bs4 import BeautifulSoup
 
 from book_worm.book import Book
+from book_worm.sources.book_caching import cache_book
 
 _GUTENBURG_URL = "https://www.gutenberg.org"
 _BOOK_PAGE_PATTERN = r"/ebooks/(\d+)"
 
 
+@cache_book("gutenburg")
 def find_book(title: str) -> Book:
     """Scrapes Project Gutenburg to get named book.
 
@@ -48,7 +50,7 @@ def find_book(title: str) -> Book:
 
     text = _find_book_text(book_id)
 
-    return Book(title, text, author=author)
+    return Book(title=title, author=author, text=text)
 
 
 def _find_book_text(book_id: str) -> str:

@@ -2,12 +2,12 @@
 
 Currently just acts like a named tuple, but will be extended.
 """
-from dataclasses import dataclass
 from typing import Optional
 
+from pydantic import BaseModel
 
-@dataclass
-class Book:
+
+class Book(BaseModel):
     title: str
     text: str
     author: Optional[str] = None
